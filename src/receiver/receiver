@@ -1,0 +1,5 @@
+#!/bin/bash
+
+./restore mysql_password mysql_user path_to_mysql.sql
+./changedomain mysql_password mysql_user oldurl newurl
+

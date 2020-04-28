@@ -1,0 +1,21 @@
+#!/usr/bin/expect
+  
+set timeout 20
+
+set password [lindex $argv 0]
+set user [lindex $argv 1]
+set path [lindex $argv 2]
+
+eval spawn "mysql -u $user -p"
+expect "assword:"
+send "$password\r";
+expect ">"
+send "use wordpress\r";
+
+expect ">"
+send "source $path\r";
+expect ">"
+send "exit\r";
+
+interact
+

@@ -1,0 +1,43 @@
+#!/usr/bin/expect
+  
+set timeout 20
+
+set password [lindex $argv 0]
+set user [lindex $argv 1]
+set oldurl [lindex $argv 2]
+set newurl [lindex $argv 3]
+
+
+
+eval spawn "mysql -u $user -p"
+expect "assword:"
+send "$password\r";
+expect ">"
+send "use wordpress\r";
+
+expect ">"
+send "UPDATE wp_options SET option_value = replace(option_value,\'$oldurl\',\'$newurl\') WHERE option_name = 'home' OR option_name = 'siteurl';\r";
+
+expect ">"
+send "UPDATE wp_posts SET post_content = replace(post_content, \'$oldurl\',\'$newurl\');\r";
+
+expect ">"
+send "UPDATE wp_posts SET guid = replace(guid, \'$oldurl\',\'$newurl\');\r";
+
+expect ">"
+send "UPDATE wp_comments SET comment_content = replace(comment_content, \'$oldurl\', \'$newurl\');\r";
+
+expect ">"
+send "UPDATE wp_comments SET comment_author_url = replace(comment_author_url, \'$oldurl\',\'$newurl\');\r";
+
+expect ">"
+send "UPDATE wp_postmeta SET meta_value = replace(meta_value, \'$oldurl\',\'$newurl\');\r";
+
+expect ">"
+send "UPDATE wp_usermeta SET meta_value = replace(meta_value, \'$oldurl\',\'$newurl\');\r";
+
+expect ">"
+send "exit\r";
+
+interact
+

@@ -1,0 +1,5 @@
+#!/bin/bash
+./backup mysql_password mysql_user > mysql.sql
+sed -i '1,2d' mysql.sql
+
+./scpconnect login_password login_user remote_ip  remote_port remote_path

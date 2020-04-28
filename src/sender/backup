@@ -1,0 +1,14 @@
+#!/usr/bin/expect
+  
+set timeout 20
+
+set password [lindex $argv 0]
+set user [lindex $argv 1]
+
+eval spawn "mysqldump -u $user -p wordpress"
+expect "assword:"
+send "$password\r";
+expect ">"
+
+interact
+
