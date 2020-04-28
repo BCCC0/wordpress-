@@ -16,14 +16,23 @@ sed -i '1,2d' mysql.sql
 
 ./scpconnect login_password login_user remote_ip  remote_port remote_path
 ```
+
 需要改变的参数有以下七个：
+
     mysql_password：源主机上MySQL的用户
+
     mysql_user：源主机MySQL的密码（与wordpress后台一致）
+
     login_password：ssh登录密码
+
     login_user：ssh登录用户
+
     remote_ip：ssh地址
+
     remote_port：ssh端口
+
     remote_path：目的主机上存放目录，假设是/root，那么会生成一个/root/mysql.sql的数据库文件
+
 4. 在receiver文件夹下配置receiver脚本
 ```shell
 #!/bin/bash
@@ -32,12 +41,19 @@ sed -i '1,2d' mysql.sql
 ./changedomain mysql_password mysql_user oldurl newurl
 
 ```
+
 需要改变的参数有五个：
+
     mysql_password：目的主机上MySQL的用户
+
     mysql_user：目的主机MySQL的密码（与wordpress后台一致）
+
     path_to_mysql.sql：生成文件mysql.sql的位置，如果源主机上remote_path配置是/root，此配置则为/root/mysql.sql
+
     oldurl:源主机wordpress后台站点域名
+
     newurl:目的主机wordpress后台站点域名
+    
 5. 设置crontab实现自动更新
 ***待补充***
 
