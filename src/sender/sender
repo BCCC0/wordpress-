@@ -1,4 +1,5 @@
 #!/bin/bash
+date
 ./backup mysql_password mysql_user > mysql.sql
 sed -i '1,2d' mysql.sql
 
